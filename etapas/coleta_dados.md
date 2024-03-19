@@ -32,6 +32,69 @@ Os scripts de transformação também devem ser escritos em Python. O desenvolvi
 
 Os dados devem ser armazenados em padrão estruturado, isto é, voltados para Data Warehousing, de forma que a análise de BI também seja possibilitada. Assim, após tratamento, os dados devem estar em arquivos de CSV (utf-8) para serem salvos tanto em buckets S3 quanto no banco de dados relacional RDS da AWS.
 
+A tabela 1 apresenta o dicionário de dados do que se espera como conteúdo final dos arquivos. 
+
+## Tabela 1 - Dicionário de Dados
+
+| Campo/Coluna                 | Tipo               | Descrição                                                         |
+|------------------------------|--------------------|-------------------------------------------------------------------|
+| Agente Causador do acidente  | VARCHAR (120)      | Descrição e código do agente causador do acidente.                |
+| Data Acidente                | DATE               | Data do Acidente de Trabalho registrada na CAT.                   |
+| CBO                          | INTEGER            | Código Brasileiro de Ocupação.                                    |
+| CID                          | VARCHAR (5)        | Identificador da doença de acordo com o CID-10 - Código Internacional de Doenças. |
+| CNAE                         | VARCHAR (10)       | Classificação Nacional da Atividade Econômica no AEPS.            |
+| Emitente da CAT              | VARCHAR (120)      | Emitente da CAT.                                                  |
+| Espécie do Benefício         | VARCHAR (120)      | Espécie do Benefício.                                             |
+| Filiação do Segurado         | VARCHAR (120)      | Tipo de filiação à Previdência Social do Segurado da CAT.         |
+| Indicador de Óbito Acidente  | BOOLEAN            | Indicador de óbito do segurado.                                   |
+| Município Empregador         | VARCHAR (120)      | Município do Empregador.                                          |
+| Natureza da Lesão            | VARCHAR (120)      | Descrição e código da Natureza da Lesão do Segurado.               |
+| Parte do Corpo Atingida      | VARCHAR (120)      | Parte do Corpo Atingida.                                          |
+| Sexo                         | VARCHAR (1)        | Sexo do segurado informado na CAT.                                |
+| Tipo de acidente             | VARCHAR (20)       | Tipo do Acidente de Trabalho sofrido pelo segurado.               |
+| UF Município do Acidente     | VARCHAR (120)      | Unidade da Federação do local do acidente.                        |
+| UF Município Empregador      | VARCHAR (120)      | Código da Unidade da Federação do Município do Empregador.        |
+| Data Afastamento             | DATE               | Data em que ocorreu o afastamento do segurado do seu trabalho devido ao acidente de trabalho. |
+| Data DDB                     | DATE               | Data do Despacho do Benefício.                                    |
+| Data Nascimento              | DATE               | Data do nascimento do segurado.                                   |
+| Data Emissão da CAT          | DATE               | Data de emissão da CAT.                                           |
+
+Fonte: Autores 2024.
+
+#  Prévia do Modelo de Entidade-Relacionamento (DER)
+
+## Entidades:
+
+### Entidade: Acidente
+- Atributos:
+  - ID_Acidente (PK)
+  - DataAcidente
+  - TipoAcidente
+  - Localizacao
+
+### Entidade: Empregado
+- Atributos:
+  - ID_Empregado (PK)
+  - Nome
+  - CPF
+  - DataNascimento
+  - Sexo
+
+### Entidade: Ocorrencia
+- Atributos:
+  - ID_Ocorrencia (PK)
+  - ID_Acidente (FK)
+  - ID_Empregado (FK)
+  - DataOcorrencia
+  - Descricao
+
+## Relações:
+
+- **Acidente** tem muitas **Ocorrencias**. (Um-Para-Muitos)
+- **Empregado** tem muitas **Ocorrencias**. (Um-Para-Muitos)
+
+
+
 ### 3.1.3. Desenvolvimento do Modelo
 
 "K" da pirâmide DIKW; conhecimento. Principais envolvidos: Data Scientist. Principais objetivos: Garantir desenvolvimento de modelo de Machine Learning com objetivos claros, em constante contato com a área de negócio.
