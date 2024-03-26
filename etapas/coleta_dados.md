@@ -63,7 +63,7 @@ Fonte: Autores 2024.
 
 #  Uma prévia do modelo de Entidade-Relacionamento é mostrada na Figura 1 (DER)
 
-![Modelagem de dados StarSchema](etapas/imagens/etapa_2_imagem1.png)
+![Modelagem de dados StarSchema](imagens/etapa_2_imagem1.png)
 Fonte: Autores, 2024
 
 
