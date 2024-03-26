@@ -61,38 +61,10 @@ A tabela 1 apresenta o dicionário de dados do que se espera como conteúdo fina
 
 Fonte: Autores 2024.
 
-#  Prévia do Modelo de Entidade-Relacionamento (DER)
+#  Uma prévia do modelo de Entidade-Relacionamento é mostrada na Figura 1 (DER)
 
-## Entidades:
-
-### Entidade: Acidente
-- Atributos:
-  - ID_Acidente (PK)
-  - DataAcidente
-  - TipoAcidente
-  - Localizacao
-
-### Entidade: Empregado
-- Atributos:
-  - ID_Empregado (PK)
-  - Nome
-  - CPF
-  - DataNascimento
-  - Sexo
-
-### Entidade: Ocorrencia
-- Atributos:
-  - ID_Ocorrencia (PK)
-  - ID_Acidente (FK)
-  - ID_Empregado (FK)
-  - DataOcorrencia
-  - Descricao
-
-## Relações:
-
-- **Acidente** tem muitas **Ocorrencias**. (Um-Para-Muitos)
-- **Empregado** tem muitas **Ocorrencias**. (Um-Para-Muitos)
-
+![Modelagem de dados StarSchema](caminho/para/a/imagem.jpg)
+Fonte: Autores, 2024
 
 
 ### 3.1.3. Desenvolvimento do Modelo
