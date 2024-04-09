@@ -1,6 +1,6 @@
 # 3. PLANEJAMENTO & DEFINIÇÕES
 
-Nesta versão inicial do documento, buscamos vislumbrar possíveis necessidades e requisitos do trabalho a ser realizado. Tais definições, como por exemplo ferramentas a serem utilizadas, podem sofrer alterações até o fim deste projeto piloto para então se consolidarem como modelo para os próximos.
+Nesta versão inicial do documento, buscamos vislumbrar possíveis necessidades e requisitos do trabalho a ser realizado. Tais definições, como por exemplo ferramentas a serem utilizadas, podem sofrer alterações até o fim deste projeto piloto, para então se consolidarem como modelo para os próximos. 
 
 ## 3.1. Ciclo de vida dos dados
 
@@ -14,23 +14,19 @@ A arquitetura e o fluxo de dados são pensados a partir dos conceitos da pirâmi
 
 ### 3.1.1. Coleta
 
-"D" da pirâmide DIKW; dados. Principais envolvidos: Data Owner, Data Engineer. Principal objetivo: garantir ingestão de dados monitorada, acompanhando integridade da fonte.
+“D” da pirâmide DIKW; dados. Principais envolvidos: Data Owner, Data Enginner. Principal objetivo: garantir ingestão de dados monitorada acompanhando integridade da fonte.  
 
-Serão utilizados os dados dos acidentes de trabalho no Brasil (CATS), disponibilizados no portal (dados.gov.br). Os dados são disponibilizados trimestralmente. A coleta e tratamento serão executadas na mesma periodicidade. Estes são disponibilizados em formatos CSV, XML e JSON a partir do ano de 2018. Como formato padrão de coleta será utilizado preferencialmente o CSV por conter melhor apresentação e facilidade de compreensão já no arquivo bruto.
+Serão utilizados os dados dos acidentes de trabalho no Brasil (CATS), disponibilizados no portal (dados.gov.br). Os dados são disponibilizados trimestralmente. A coleta e tratamento serão executadas na mesma periodicidade. Estes são disponibilizados em formatos CSV, XML e JSON a partir do ano de 2018. Como formato padrão de coleta será utilizado preferencialmente o CSV, por conter melhor apresentação e facilidade de compreensão já no arquivo bruto. 
 
-Os scripts de extração devem ser escritos em Python. O desenvolvimento dos scripts pode ser realizado em notebooks da Google Colab. Uma vez finalizados, devem ser implementados para execução permanente dentro do ambiente da AWS.
-
-O armazenamento dos dados brutos será feito em “buckets” da AWS S3.
+Os scripts de extração devem ser escritos em Python. O desenvolvimento dos scripts pode ser realizado em notebooks da Google Colab. Uma vez finalizados, devem ser organizados em pastas e diretórios de acordo com funcionalidade e subidos ao repositório. 
 
 ### 3.1.2. Transformação e armazenamento
 
-"I" da pirâmide DIKW; informação. Principais envolvidos: Data Engineer, Data Scientist. Principais objetivos: Garantir que os dados armazenados tenham qualidade e modelagem adequada para uso, com rastreabilidade de alterações.
+“I” da pirâmide DIKW; informação. Principais envolvidos:  Data Enginner, Data Scientist. Principais objetivos: Garantir que os dados armazenados tenham qualidade e modelagem adequada para uso com rastreabilidade de alterações.  
 
-Além das transformações típicas de tratamento de dados, deve-se atentar que seja feita a remoção de ocorrências duplicadas: CAT em que o agente causador, indicador de óbito, natureza da lesão, e parte atingida são iguais, mantendo assim um único registro e reaproveitando o ID da ocorrência. Realizar também a adição da descrição completa do CID (Código Internacional de Doença) e CBO (Código Brasileiro de Ocupação).
+Além das transformações típicas de tratamento de dados, deve-se atentar que seja feita a remoção de ocorrências duplicadas: CAT em que o agente causador, indicador de óbito, natureza da lesão e parte atingida, são iguais, mantendo assim um único registro e reaproveitando o ID da ocorrência. Realizar também a adição da descrição completa do CID (Código Internacional de Doença) e CBO (Código Brasileiro de Ocupação). 
 
-Os scripts de transformação também devem ser escritos em Python. O desenvolvimento dos scripts de transformação deve ser realizado diretamente no AWS Glue, para catalogação e organização os metadados dos dados.
-
-Os dados devem ser armazenados em padrão estruturado, isto é, voltados para Data Warehousing, de forma que a análise de BI também seja possibilitada. Assim, após tratamento, os dados devem estar em arquivos de CSV (utf-8) para serem salvos tanto em buckets S3 quanto no banco de dados relacional RDS da AWS.
+Os scripts de transformação também devem ser escritos em Python. Os dados devem ser armazenados em padrão estruturado, isto é, voltados para Data Warehousing, de forma que a análise de BI também seja possibilitada. Após tratamento, os dados devem estar em arquivos de CSV (utf-8), salvos em pastas e diretórios devidos, assim como em banco de dados MySQL. 
 
 A tabela 1 apresenta o dicionário de dados do que se espera como conteúdo final dos arquivos. 
 
@@ -69,41 +65,23 @@ Fonte: Autores, 2024
 
 ### 3.1.3. Desenvolvimento do Modelo
 
-"K" da pirâmide DIKW; conhecimento. Principais envolvidos: Data Scientist. Principais objetivos: Garantir desenvolvimento de modelo de Machine Learning com objetivos claros, em constante contato com a área de negócio.
+“K” da pirâmide DIKW; conhecimento. Principais envolvidos:  Data Scientist. Principais objetivos: Garantir desenvolvimento de modelo de Machine Learning com objetivos claros, em constante contato com a área de negócio. 
 
-Nesta fase, é verificada a aplicabilidade do modelo, sendo feita uma prova de conceito (POC). Diversos algoritmos são testados para validar, de forma inicial, a qualidade do modelo. Com os dados tratados, é possível realizar análises e interpretações, buscando entender padrões. Nessa fase, é onde será implementado o modelo de aprendizagem de máquina (ML).
+Nesta fase é verificada a aplicabilidade do modelo, sendo feita uma prova de conceito (POC). Diversos algoritmos são testados para validar de forma inicial a qualidade do modelo. Com os dados tratados, é possível realizar análises e interpretações buscando entender padrões. Nessa fase, é onde será implementado o modelo de aprendizagem de máquina (ML). 
 
-Provas de Conceito e protótipos podem ser criados e testados usando Notebooks do Google Colab, para facilitar a exploração interativa dos dados e a experimentação com diferentes algoritmos. O desenvolvimento também deve ser em Python, com bibliotecas de ML como scikit-learn, TensorFlow, ou PyTorch.
+Provas de Conceito e protótipos podem ser criados e testados usando Notebooks do Google Colab. Para facilitar exploração interativa dos dados e a experimentação com diferentes algoritmos. O desenvolvimento também deve ser em Python com bibliotecas de ML scikit-learn, TensorFlow ou PyTorch. 
 
 ### 3.1.4. Operacionalização
 
-"W" da pirâmide DIKW; sabedoria. Principais envolvidos: Data Scientist, Data Owner. Principais objetivos: Garantir a entrega de um produto que gere confiança e valor, com segurança.
+“W” da pirâmide DIKW; conhecimento. Principais envolvidos:  Data Scientist, Data Owner. Principais objetivos: Garantir entrega de um produto que gere confiança e valor, com segurança. 
 
-Nessa fase, uma vez desenvolvido o modelo, é necessário disponibilizá-lo para uso/consumo, onde serão aplicados os insights obtidos para a precificação dos seguros de vida. Para a implantação do modelo, espera-se um modelo enxuto e rápido, podendo ser implantado como uma função serverless usando o AWS Lambda.
+Nessa fase, uma vez desenvolvido o modelo, é necessário disponibilizá-lo para uso/consumo, onde será os insights obtidos para a precificação dos seguros de vida. Para implantação do modelo, espera-se um modelo enxuto e rápido, podendo ser implantado como uma função serverless usando o AWS Lambda. 
 
 ## 3.2. Segurança
 
-É importante manter a segurança dos dados e dos processos em nosso ambiente AWS, especialmente ao manusear informações sensíveis. Para assegurar uma gestão de acesso eficaz e segura, utilizaremos o AWS Identity and Access Management (IAM), um serviço robusto que nos permite definir usuários, grupos de usuários, roles (funções), e políticas de segurança.
+A extração e tratamento dos dados não adiciona informações internas à base de dados pública. Assim, não há riscos associados ao acesso de dados das fases de desenvolvimento anteriores ao aprendizado de máquina em si.  
 
-Com o IAM, podemos criar políticas de acesso que seguem o princípio do menor privilégio, garantindo que cada usuário, aplicação, ou serviço tenha apenas as permissões necessárias para executar suas tarefas. Isso minimiza o risco de acesso indevido ou manipulação não autorizada de dados e recursos.
+O acesso ao repositório de códigos, entretanto, tanto da parte pública quanto da privada, deve ser bem controlado para garantir boa governança e que não ocorram perdas e erros internos no desenvolvimento. Backups devem ser realizados localmente e na nuvem. 
 
-### Práticas de Segurança Implementadas:
-
-- **Controle de Acesso Baseado em Papéis (RBAC)**: Implementaremos um modelo RBAC, onde as permissões para acessar os serviços e dados serão definidas com base no papel do usuário dentro da organização.
-
-- **IAM Users**: Usuários do IAM serão criados para indivíduos que precisam de acesso ao AWS Console ou APIs, com a autenticação reforçada por métodos como a autenticação multifator (MFA).
-
-- **IAM User Groups**: Grupos de usuários do IAM facilitarão a gestão de permissões comuns entre usuários com funções similares, simplificando a administração e a atualização de políticas de acesso.
-
-- **Roles**: Roles permitirão a delegação de permissões a serviços e entidades da AWS sem a necessidade de compartilhar credenciais diretas.
-
-- **Polices**: Políticas de acesso especificarão exatamente o que cada entidade pode e não pode fazer dentro do ambiente AWS.
-
-- **Autenticação de Dois Fatores (2FA)**: A autenticação de dois fatores para todos os usuários garante uma camada adicional de proteção.
-
-- **Criptografia**: Utilizaremos o AWS Key Management Service (KMS) para gerenciar as chaves de criptografia usadas para proteger os dados.
-
-- **Monitoramento e Auditorias**: Através dos serviços Amazon CloudTrail e Amazon CloudWatch, vamos monitorar e registrar todas as atividades dos usuários e das roles IAM.
-
-Implementando esse conjunto de práticas e controles, asseguramos a proteção dos dados e sistemas contra uso indevido, ao mesmo tempo em que facilitamos as operações diárias dos usuários.
+Quanto aos códigos e dados gerados por Machine Learning, por constituírem o produto de valor agregado que este projeto visa oferecer; estes devem ter acesso restrito a partir de papéis/funções (RBAC) atribuídas aos usuários internos, e seguirem o princípio do menor privilégio.
 
