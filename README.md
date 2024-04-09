@@ -1,7 +1,7 @@
 # Eixo-5
 Arquitetura de Dados em Nuvem
 
-# Precificação de Seguro de Vida para Empresas
+# Análise de Risco em Seguro de Vida para Empresas
 `TECNOLOGIA EM BANCO DE DADOS`
 `2024/1`
 
