@@ -23,8 +23,8 @@ Além do desenvolvimento do modelo e da tabela de precificação, o projeto incl
 
 | Etapa         | Atividades |
 |  :----:   | ----------- |
-| ETAPA 1        |[Documentação de Contexto](etapas/inicio_do_projeto.md) |
-| ETAPA 2        |[Coleta de Dados](etapas/coleta_dados.md) |
+| ETAPA 1        |[Introdução](etapas/inicio_do_projeto.md) |
+| ETAPA 2        |[Planejamento](etapas/coleta_dados.md) |
 | ETAPA 3        |[Pré-processamento](etapas/pre_processamento.md) |
 | ETAPA 4        |[Aprendizagem de Máquina](etapas/aprendizado_maquina_rev.md)|
 | ETAPA 5        |[Análise dos Resultados](etapas/analise_resultados.md) |
