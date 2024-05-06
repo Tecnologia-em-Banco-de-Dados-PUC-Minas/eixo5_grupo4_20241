@@ -6,16 +6,16 @@ import asyncio
 import csv
 import zipfile
 from io import BytesIO
+from dotenv import load_dotenv
+
+load_dotenv()
 # CLASSES
 from configs.dbFuncs import *
 
 
-# VARIAVEIS GLOBAIS
-mainUrl = "https://armazenamento-dadosabertos.s3.sa-east-1.amazonaws.com/Plano+2016_2018_Grupos+de+dados/INSS+-+Comunica%C3%A7%C3%A3o+de+Acidente+de+Trabalho+-+CAT/"
-
 class Download:
-    def __init__(self, ROOT_DIR, schema):
-        self.dbFuncs = manageDB(schema)
+    def __init__(self, ROOT_DIR):
+        self.dbFuncs = manageDB()
         self.ROOT_DIR = ROOT_DIR
         self.downloadPath = os.path.join(ROOT_DIR + "/downloads/")
         self.tempFilesPatch = os.path.join(ROOT_DIR + "/downloads/" + "temp/")
@@ -38,16 +38,19 @@ class Download:
             print("Exception __init__: " + E)
 
     # TESTA SE A URL É VALIDA E ACESSIVEL
-    async def testUrls(self, fileUrl):
-        fileExtension = "csv" if "csv" in fileUrl else "zip"
+    async def testUrls(self, fileUrl, fileName, fileExtension):
         try:
-            response = requests.urlopen(mainUrl + fileUrl)
+            response = requests.urlopen(fileUrl)
             if response.code == 200 and fileExtension == "csv":
-                print(f"{fileUrl} - Verifing if file not exists and initialing download!")
-                await self.downloadFile(fileUrl)
+                print(
+                    f"{fileUrl} - Verifing if file not exists and initialing download!"
+                )
+                await self.downloadFile(fileUrl, fileName, fileExtension)
             if response.code == 200 and fileExtension == "zip":
-                print(f"{fileUrl} - Verifing if file not exists and initialing download!")
-                await self.downloadFile(fileUrl)
+                print(
+                    f"{fileUrl} - Verifing if file not exists and initialing download!"
+                )
+                await self.downloadFile(fileUrl, fileName, fileExtension)
         except HTTPError as E:
             # print("Extension not recognized or URL unavailable!")
             return
@@ -55,27 +58,29 @@ class Download:
             print(f"Exception testUrls: {E}")
 
     # REALIZA O DOWNLOAD DO ARQUIVO SEPARANDO POR PASTA DE ACORDO COM A EXTENSAO
-    async def downloadFile(self, fileName):
-        self.dbFuncs.insertLog("Iniciado processo de download dos arquivos!")
+    async def downloadFile(self, fileUrl, fileName, fileExtension):
+        fileNameComplete = fileName + "." + fileExtension
         try:
             asyncio.get_running_loop()
-            # for pos, url in enumerate(validUrl):
-            fileUrl = mainUrl + fileName
-            fileExtension = "csv" if "csv" in fileName else "zip"
-
             if fileExtension == "csv":
-                if fileName not in self.returnFiles():
+                if fileNameComplete not in self.returnFiles():
                     print(f"File {fileName} not exists, downloading...")
-                    if requests.urlretrieve(fileUrl, os.path.join(self.tempFilesPatch, fileName)):
-                        await self.moveFiles(fileName)
-                else: print(f"File exists, download cancelled!")
+                    if requests.urlretrieve(
+                        fileUrl, os.path.join(self.tempFilesPatch, fileNameComplete)
+                    ):
+                        await self.moveFiles(fileNameComplete)
+                else:
+                    print(f"File exists, download cancelled!")
             if fileExtension == "zip":
                 if await self.ViewZipBeforeDownload(fileUrl) == True:
                     print(f"File {fileName} not exists, downloading...")
-                    if requests.urlretrieve(fileUrl, os.path.join(self.tempFilesPatch, fileName)):
-                        await self.extractFile(fileName)
-                        await self.moveAndDeleteFiles()
-                else: print(f"File exists, download cancelled!")
+                    if requests.urlretrieve(
+                        fileUrl, os.path.join(self.tempFilesPatch, fileNameComplete)
+                    ):
+                        await self.extractFile(fileNameComplete)
+                        await self.moveAndDeleteFiles(fileNameComplete)
+                else:
+                    print(f"File exists, download cancelled!")
         except Exception as E:
             print("Exception downloadFile: " + E)
 
@@ -98,17 +103,18 @@ class Download:
                 "r",
             ) as zip:
                 file_info_list = zip.infolist()
+                print(f"Extracting file {fileName}")
                 for file_info in file_info_list:
                     if (
                         not file_info.filename in self.returnFiles()
-                        and "csv" in file_info.filename
+                        and "csv" or "CSV" in file_info.filename
                     ):
-                        print(f"Extracting file {fileName}")
                         zip.extract(
                             file_info.filename, os.path.join(self.tempFilesPatch)
                         )
                     else:
                         print(f"File {fileName} exist, not necessary unzip.")
+                
         except Exception as E:
             print("Exception extractFile: " + E)
 
@@ -118,7 +124,8 @@ class Download:
             tempArr = []
             for root, dirs, files in os.walk(self.downloadPath):
                 for name in files:
-                    tempArr.append(name)
+                    if "dm_" not in name and "ft_temp" not in name:
+                        tempArr.append(name)
             return tempArr
         except Exception as E:
             print("Exception returnFiles: " + E)
@@ -136,17 +143,17 @@ class Download:
                     newFilePath = os.path.join(self.M2Path, file)
             # SE O ARQUIVO JA EXISTIR NO DESTINO, SUBSTITUI PELO NOVO, SE NAO APENAS MOVIMENTA
             if os.path.exists(newFilePath):
-                print(f"File {file} moved to folder modelo_1")
+                print(f"File {file} moved to corresponding folder!")
                 os.remove(newFilePath)
                 os.rename(filePath, newFilePath)
             else:
-                print(f"File {file} moved to folder modelo_2")
+                print(f"File {file} moved to corresponding folder!")
                 os.rename(filePath, newFilePath)
         except Exception:
             print("moveFiles: " + Exception)
 
     # DELETAR ARQUIVOS TEMPORARIOS (ZIPS E DIFERENTES DE CSV)
-    async def moveAndDeleteFiles(self):
+    async def moveAndDeleteFiles(self, fileNameComplete):
         try:
             # MOVE OS ARQUIVOS CSV DA PASTA DESCOMPACTADA
             for root, dirs, files in os.walk(self.tempFilesPatch):
