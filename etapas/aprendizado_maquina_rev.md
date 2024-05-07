@@ -20,13 +20,17 @@ A nota de risco para o atributo é obtida pela multiplicação das notas de faix
 </div>
 
 
-
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
   <p style="font-size: 16px; text-decoration: underline;">Figura 3 – Exemplo de atributos classificados após o ranqueamento</p>
-  <img src="imagens/etapa4_img_classificacao2_1.png" alt="Exemplo de atributos classificados após o ranqueamento1">
-  <img src="imagens/etapa4_img_classificacao2_2.png" alt="Exemplo de atributos classificados após o ranqueamento2">
+  <div>
+    <img src="imagens/etapa4_img_classificacao2_1.png" alt="Exemplo de atributos classificados após o ranqueamento1">
+  </div>
+  <div>
+    <img src="imagens/etapa4_img_classificacao2_2.png" alt="Exemplo de atributos classificados após o ranqueamento2">
+  </div>
   <p>Fonte: Autores, 2024</p>
 </div>
+
 
 
 Finalmente, a nota final de classificação para cada linha da base de treinamento é dada pela média das notas atribuídas a cada atributo da linha.
