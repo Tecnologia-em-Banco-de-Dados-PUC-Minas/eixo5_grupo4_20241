@@ -12,6 +12,11 @@ Uma nota é atribuída para cada faixa do ranking. Notas de 1 a 4 para frequênc
 
 A nota de risco para o atributo é obtida pela multiplicação das notas de faixa de ranking, divida por 12, para que os resultados fiquem entre 0 e 1. 
 
-Figura 2 – Esquema de ranqueamento e classificação de risco dos atributos relevantes 
-![Modelagem de dados StarSchema](imagens/etapa4_img_classificacao1.png)
-Fonte: Autores, 2024
+### Figura 2 – Esquema de ranqueamento e classificação de risco dos atributos relevantes 
+![Esquema de ranqueamento e classificação de risco dos atributos relevantes](imagens/etapa4_img_classificacao1.png)
+Fonte: Autores, 2024.
+
+### Figura 3 – Exemplo de atributos classificados após o ranqueamento
+![Exemplo de atributos classificados após o ranqueamento1](imagens/etapa4_img_classificacao2_1.png)
+![Exemplo de atributos classificados após o ranqueamento2](imagens/etapa4_img_classificacao2_2.png)
+Fonte: Autores, 2024.
