@@ -59,7 +59,7 @@ No processo, acessamos dados da tabela ft_rank via sqlalchemy, restringindo a co
 
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
     <p style="font-size: 16px; text-decoration: underline;"> Figura 6 – Árvore de Regressão</p>
-  <img src="imagens/etapa4_regressao_linear.jpeg" alt="Exemplo de atributos classificados após o ranqueamento1">
+  <img src="imagens/etapa4_arvore_regressao.jpeg" alt="Exemplo de atributos classificados após o ranqueamento1">
   <p>Fonte: Autores, 2024</p>
 </div>
 
