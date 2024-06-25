@@ -13,7 +13,7 @@ As colunas utilizadas foram Sexo, UF_Munic_Empregador, Ano_Nascimento, CNAE2_0_E
 ## 6.2. Pontuação de Acurácia e matriz de confusão
 Após a primeira execução do modelo, foi possível obter os seguintes valores para as pontuações:
 
-div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
   <p style="font-size: 16px; text-decoration: underline;">Figura 1 – Acurácia e matriz de confusão</p>
   <div>
     <img src="imagens/etapa6.png" alt="Exemplo de atributos classificados após o ranqueamento1">
