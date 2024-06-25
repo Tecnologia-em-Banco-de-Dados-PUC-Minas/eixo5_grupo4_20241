@@ -16,9 +16,16 @@ Após a primeira execução do modelo, foi possível obter os seguintes valores 
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
   <p style="font-size: 16px; text-decoration: underline;">Figura 1 – Acurácia e matriz de confusão</p>
   <div>
-    <img src="imagens/etapa6.png" alt="Exemplo de atributos classificados após o ranqueamento1">
+    <img src="imagens/etapa_6_pontos.png" alt="Pontuação da acurária e matriz de confusão obtidas">
   </div>
   <p>Fonte: Autores, 2024</p>
 </div>
 
 ## 6.3. Resultado da classificação
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+  <p style="font-size: 16px; text-decoration: underline;">Figura 2 – Arvore de classificação</p>
+  <div>
+    <img src="imagens/etapa_6_grafico.png" alt="Arvore de classificação gerada">
+  </div>
+  <p>Fonte: Autores, 2024</p>
+</div>
