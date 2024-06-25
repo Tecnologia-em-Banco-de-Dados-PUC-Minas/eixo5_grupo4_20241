@@ -29,3 +29,6 @@ Após a primeira execução do modelo, foi possível obter os seguintes valores 
   </div>
   <p>Fonte: Autores, 2024</p>
 </div>
+
+Na figura acima, foram utilizados os primeiros 100 registros da tabela ft_rank (tabela responsavel por armazenar os valores das classificações),
+afim de se obter o resultado proximo das classificações anteriores.
