@@ -30,3 +30,19 @@ Após a primeira execução do modelo, foi possível obter os seguintes valores 
 
 Na figura acima, foram utilizados os primeiros 100 registros da tabela ft_rank (tabela responsavel por armazenar os valores das classificações),
 afim de se obter o resultado proximo das classificações anteriores.
+
+## 6.4. Análise do resultado
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+  <p style="font-size: 16px; text-decoration: underline;">Figura 3 – Amostras por Classe de Risco</p>
+  <div>
+    <img src="imagens/etapa6_imagem3.jpg" alt="Amostras por Classe de Risco">
+  </div>
+  <p>Fonte: Autores, 2024</p>
+</div>
+Ao analisar o resultado, por gráficos, vemos que o modelo tendeu a prever a maioria dos perfis como categoria D (gráfica da Matriz de Confusão). 
+Isto que faz sentido, dado que a maioria dos acidentes que acontecem, e, logo, com os quais o modelo é treinado, são também desta categoria, como se vê no gráfico de barras.
+Mesmo com a tendência de classificação para D, ao analisarmos as outras categorias, vemos que a distribuição de previsões segue o esperado.
+Ou seja, de todas as predições para uma certa classe, a maioria foi realizada na classe verdadeira.
+Levando em conta que acidentes de outras classes que não C e D são bem mais raros, ocorrendo proporcionalmente em muito menor frequência, julga-se aceitável que o modelo não os assuma com tanta frequência,
+quando se leva em conta dados tão genéricos quanto sexo, ocupação, localidade. Com uma acurácia de previsão de classe de acidente de 64%, consideramos que atende-se também a aplicação objetivada do modelo,
+o que levaria a uma avaliação de risco média menos variável - mais conservadora - para a maioria dos potenciais clientes do seguro, avaliando como altíssimo ou baixíssimo risco apenas perfis mais certeiros.
